@@ -83,6 +83,7 @@ def process_folder():
         current_card = cards_data[current_card_index]
         team_abbreviation = current_card['card_id'].split('_')[0].upper()
         team_name = team_mapping.get(team_abbreviation, 'Unknown Team')
+        
         if not card_id_exists(current_card['card_id']):
             if 'submit' in request.form:
                 # Only process the form data when the submit button is pressed
