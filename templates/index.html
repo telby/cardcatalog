@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Trading Card App</title>
+</head>
+<body>
+    <h1>NFL Trading Card App</h1>
+    <form action="/process_folder" method="post"> <!-- Change method to "post" -->
+        <label for="folder_input">Selected Folder:</label>
+        <input type="text" id="folder_input" name="folder_path" value="{{ folder_path }}" readonly>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Trading Card App - Process Folder</title>
+</head>
+<body style="display: flex; align-items: center; justify-content: center;">
+
+    <!-- Left side with images -->
+    <!-- <h2>Process Trading Cards</h2> -->
+    <div style="flex: 1;">
+        <img src="{{ url_for('static', filename='images/' + current_card.card_id + '_A.png') }}" style="width:48%; margin-right: 20px;">
+        <img src="{{ url_for('static', filename='images/' + current_card.card_id + '_B.png') }}" style="width:48%;">
+    </div>
+    <div style="flex: 0 0 33%; padding: 20px;">
+    <form action="/process_folder" method="post">
+        <input type="hidden" name="current_card_index" value="{{ current_card_index }}">
+        <input type="hidden" name="card_id" value="{{ current_card.card_id }}">
+        <input type="hidden" name="front_image_path" value="{{ current_card.front_image_path }}">
+        <input type="hidden" name="back_image_path" value="{{ current_card.back_image_path }}">
+        <p>Card ID: {{ current_card.card_id }}</p>
+      
+        <!-- Year -->
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="year"><br />
+        
+        <!-- Brand -->
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" value="Panini"><br />
+
+        <!-- Set -->
+        <label for="set">Set:</label>
+        <input type="text" id="set" name="set"><br />
+
+        <!-- Player Name -->
+        <label for="player_name">Player Name:</label>
+        <input type="text" id="player_name" name="player_name"><br />
+
+        <!-- Card Type -->
+        <label for="card_type">Card Type:</label>
+        <input type="text" id="card_type" name="card_type"><br />
+
+        <!-- Card Subtype -->
+        <label for="card_subtype">Card Subtype:</label>
+        <input type="text" id="card_subtype" name="card_subtype"><br />
+
+        <!-- card number -->
+        <label for="card_number">Card Number:</label>
+        <input type="text" id="card_number" name="card_number"><br />
+
+        <!-- Team -->
+        <label for="team">Team:</label>
+        <input list="teams" id="team" name="team" autocomplete="off" value="{{ team_name }}"><br />
+        <datalist id="teams">
+            <option value="Arizona Cardinals">
+            <option value="Atlanta Falcons">
+            <option value="Baltimore Ravens">
+            <option value="Buffalo Bills">
+            <option value="Carolina Panthers">
+            <option value="Chicago Bears">
+            <option value="Cincinnati Bengals">
+            <option value="Cleveland Browns">
+            <option value="Dallas Cowboys">
+            <option value="Denver Broncos">
+            <option value="Detroit Lions">
+            <option value="Green Bay Packers">
+            <option value="Houston Texans">
+            <option value="Indianapolis Colts">
+            <option value="Jacksonville Jaguars">
+            <option value="Kansas City Chiefs">
+            <option value="Las Vegas Raiders">
+            <option value="Los Angeles Chargers">
+            <option value="Los Angeles Rams">
+            <option value="Miami Dolphins">
+            <option value="Minnesota Vikings">
+            <option value="New England Patriots">
+            <option value="New Orleans Saints">
+            <option value="New York Giants">
+            <option value="New York Jets">
+            <option value="Philadelphia Eagles">
+            <option value="Pittsburgh Steelers">
+            <option value="San Francisco 49ers">
+            <option value="Seattle Seahawks">
+            <option value="Tampa Bay Buccaneers">
+            <option value="Tennessee Titans">
+            <option value="Washington Football Team">
+        </datalist>
+
+        <!-- Serial Number -->
+        <label for="serial_number">Numbered x/x:</label>
+        <input type="text" id="serial_number" name="serial_number"><br />
+
+        <!-- Position -->
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position"><br />
+
+        <!-- Rookie -->
+        <label for="rookie">Rookie:</label>
+        <input type="checkbox" id="rookie" name="rookie" value="1"><br />
+
+        <!-- Autograph/Signature -->
+        <label for="autograph">Autograph/Signature:</label>
+        <input type="checkbox" id="autograph" name="autograph" value="1"><br />
+
+        <!-- Jersey or Memorabilia Relic -->
+        <label for="memorabilia_relic">Jersey or Memorabilia Relic:</label>
+        <input type="checkbox" id="memorabilia_relic" name="memorabilia_relic" value="1"><br />
+
+
+        <button type="submit" name="submit">Submit</button>
+    </form>
+    </div>
+</body>
+</html>
