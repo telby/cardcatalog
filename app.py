@@ -83,12 +83,13 @@ def process_folder():
         current_card = cards_data[current_card_index]
         team_abbreviation = current_card['card_id'].split('_')[0].upper()
         team_name = team_mapping.get(team_abbreviation, 'Unknown Team')
-        
-        if 'submit' in request.form:
-            # Only process the form data when the submit button is pressed
-            current_card_index += 1  # Increment the index after processing the current card
-            write_to_csv(current_card, request.form)
-
+        if not card_id_exists(current_card['card_id']):
+            if 'submit' in request.form:
+                # Only process the form data when the submit button is pressed
+                current_card_index += 1  # Increment the index after processing the current card
+                write_to_csv(current_card, request.form)
+        else:
+            current_card_index +=1
         
 
     else:
@@ -111,6 +112,15 @@ def get_cards_data(folder_path):
             cards_data.append({'card_id': card_id, 'front_image_path': front_image_path, 'back_image_path': back_image_path})
 
     return cards_data
+
+def card_id_exists(card_id):
+    # Check if the card ID already exists in the CSV file
+    with open(CSV_FILE, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if row['card_id'] == card_id:
+                return True
+    return False
 
 @app.route('/submit_cards', methods=['POST'])
 def submit_cards():
