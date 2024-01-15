@@ -1,3 +1,4 @@
+CardID,Font Image Path,Back Image Path,Year,Brand,Set,Player Name,Card Type, Card Subtype,Card Number,Team,Serial Number,Position,Rookie,Autograph,Memorabilia
 ARI_01_01,D:\football\catalog\static\images\ARI_01_01_A.png,D:\football\catalog\static\images\ARI_01_01_B.png,2022,Panini,Prestige,J.J. Watt,Base,,6,Arizona Cardinals,,DE,,,
 ARI_01_02,D:\football\catalog\static\images\ARI_01_02_A.png,D:\football\catalog\static\images\ARI_01_02_B.png,2022,Panini,Prestige,Trey McBride,Base,,327,Arizona Cardinals,,TE,1,,
 ARI_01_03,D:\football\catalog\static\images\ARI_01_03_A.png,D:\football\catalog\static\images\ARI_01_03_B.png,2022,Panini,Absolute Football,Myjai Sanders,Base,,186,Arizona Cardinals,,DE,1,,
