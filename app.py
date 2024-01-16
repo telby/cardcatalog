@@ -2,9 +2,10 @@ from flask import Flask, render_template, redirect, url_for, request, session
 import csv
 import os
 
+current_folder = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 app.secret_key = '123456'  # Set a secret key for session management
-CSV_FILE = r'D:\football\catalog\trading_cards.csv'
+csv_file = os.path.join(current_folder, 'trading_cards.csv')
 
 # Mapping of NFL team abbreviations to team names
 team_mapping = {
@@ -43,10 +44,11 @@ team_mapping = {
 }
 
 # Default folder path (can be changed dynamically)
-app.config['FOLDER_PATH'] = r'D:\football\catalog\static\images'
+images_path = os.path.join(current_folder, 'static\\images')
+app.config['FOLDER_PATH'] = images_path
 
 def write_to_csv(current_card, form_data):
-    with open(CSV_FILE, 'a', newline='') as csvfile:
+    with open(csv_file, 'a', newline='') as csvfile:
         fieldnames = ['card_id', 'front_image_path', 'back_image_path', 'year', 'brand', 'set_name', 'player_name', 'card_type', 'card_subtype', 'card_number', 'team', 'serial_number', 'position', 'rookie', 'autograph', 'memorabilia_relic']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writerow({
@@ -70,7 +72,7 @@ def write_to_csv(current_card, form_data):
 
 @app.route('/')
 def index():
-    return render_template('index.html', folder_path=app.config['FOLDER_PATH'])
+    return render_template('index.html', folder_path=app.config['FOLDER_PATH'], csv_file=csv_file)
 
 @app.route('/process_folder', methods=['GET', 'POST'])
 def process_folder():
@@ -84,11 +86,13 @@ def process_folder():
         team_abbreviation = current_card['card_id'].split('_')[0].upper()
         team_name = team_mapping.get(team_abbreviation, 'Unknown Team')
         
-        if 'submit' in request.form:
-            # Only process the form data when the submit button is pressed
-            current_card_index += 1  # Increment the index after processing the current card
-            write_to_csv(current_card, request.form)
-
+        if not card_id_exists(current_card['card_id']):
+            if 'submit' in request.form:
+                # Only process the form data when the submit button is pressed
+                current_card_index += 1  # Increment the index after processing the current card
+                write_to_csv(current_card, request.form)
+        else:
+            current_card_index +=1
         
 
     else:
@@ -111,6 +115,15 @@ def get_cards_data(folder_path):
             cards_data.append({'card_id': card_id, 'front_image_path': front_image_path, 'back_image_path': back_image_path})
 
     return cards_data
+
+def card_id_exists(card_id):
+    # Check if the card ID already exists in the CSV file
+    with open(csv_file, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if row['card_id'] == card_id:
+                return True
+    return False
 
 @app.route('/submit_cards', methods=['POST'])
 def submit_cards():

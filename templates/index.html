@@ -7,9 +7,11 @@
 </head>
 <body>
     <h1>NFL Trading Card App</h1>
-    <form action="/process_folder" method="post"> <!-- Change method to "post" -->
-        <label for="folder_input">Selected Folder:</label>
-        <input type="text" id="folder_input" name="folder_path" value="{{ folder_path }}" readonly>
+    <form action="/process_folder" method="post">
+        <label for="folder_input">Images Folder: (I wouldn't change this - Place your images in static\images)</label>
+        <input type="text" id="folder_input" name="folder_path" value="{{ folder_path }}" readonly><br />
+        <label for="csv_file">CSV File:</label>
+        <input type="text" id="csv_file" name="csv_file" value="{{ csv_file }}" readonly>
         <button type="submit">Submit</button>
     </form>
 </body>
